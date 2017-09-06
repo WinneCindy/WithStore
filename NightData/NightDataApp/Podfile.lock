@@ -1,0 +1,58 @@
+PODS:
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - JSONKit (1.5pre)
+  - Masonry (1.0.2)
+  - MBProgressHUD (1.0.0)
+  - MJRefresh (3.1.12)
+  - RDVTabBarController (1.1.9)
+  - SCLAlertView-Objective-C (1.0.6)
+  - SDAutoLayout (2.1.7)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.6.3)
+  - JSONKit (~> 1.5pre)
+  - Masonry
+  - MBProgressHUD (~> 1.0.0)
+  - MJRefresh (~> 3.1.12)
+  - RDVTabBarController (~> 1.1.9)
+  - SCLAlertView-Objective-C (~> 1.0.6)
+  - SDAutoLayout (~> 2.1.7)
+  - SDWebImage (~> 3.8.1)
+
+SPEC CHECKSUMS:
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  JSONKit: bae313ce6a6c444f40489a6c0b023f399888871f
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a
+  SCLAlertView-Objective-C: ca78280817e66e74366b78579350dee2ff277e23
+  SDAutoLayout: e9b36d04b8c0b504762a04d76fbbe5108944297a
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+
+PODFILE CHECKSUM: 71588ff6c1897b6976068eaee447f97e56a80bbd
+
+COCOAPODS: 1.1.1
