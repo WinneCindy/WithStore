@@ -385,7 +385,7 @@ static NSString * Key_MsgList_Histroy_SearchTime = @"Message_SearchTime";
 
 + (NSString*) getFriendlyDateString : (long long) lngDate {
     
-    NSDate *curDate = [NSDate dateWithTimeIntervalSince1970:lngDate / 1000];
+    NSDate *curDate = [NSDate dateWithTimeIntervalSince1970:lngDate];
     
     NSDate *myDate = [NSDate date];
     

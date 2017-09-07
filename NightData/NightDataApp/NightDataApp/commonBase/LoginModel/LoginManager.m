@@ -113,7 +113,7 @@ static LoginManager * _loginCheck;
     NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithCapacity:5];
 
     
-    NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+    
     
     [params setValue:userName forKey:@"phone"];
     [params setValue:userPassword forKey:@"code"];
@@ -124,7 +124,7 @@ static LoginManager * _loginCheck;
         
         if (self.loginDomain.result == 1) {
             NSUserDefaults *used = [NSUserDefaults standardUserDefaults];
-            [used setObject:[domain.dataRoot stringForKey:@"token"] forKey:@"token"];
+            [used setObject:[[domain.dataRoot objectForKey:@"data"] stringForKey:@"token"] forKey:@"token"];
             NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
             [user setObject:@"login" forKey:@"status"];
             [self saveLoginData:userName userPwd:userPassword isAuto:isAutoLogin];
@@ -149,24 +149,62 @@ static LoginManager * _loginCheck;
     }];
 }
 
-- (void) exitSystemLogin : (UIViewController *) viewController {
-    
-    SCLAlertView * alertView = [[SCLAlertView alloc] init];
-    
-    [alertView addButton:NSLocalizedString(@"dialog_button_ok", nil)  actionBlock:^{
-        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+-(void)checkLoginfinish:(void (^)(Boolean))finish
+{
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithCapacity:5];
+    [self.loginDomain postData:URL_CheckLogin PostParams:params finish:^(BaseDomain * domain,Boolean success) {
+        NSLog(@"root == %@", self.loginDomain.dataRoot);
         
-        [userDefaults removeObjectForKey:Histroy_IsAutoLogin];
-        [userDefaults removeObjectForKey:Histroy_Password];
-        
-        [userDefaults synchronize];
-        
-        [self initUserDefalutsValue];
-        
-        [[AppDelegate getInstance] runLoginViewController:viewController];
+        if ([self.loginDomain.dataRoot integerForKey:@"code"] == 1) {
+            
+            if (finish) {
+                finish(YES);
+            }
+        }
+        else {
+            if (finish) {
+                finish(NO);
+            }
+        }
     }];
     
-    [alertView showInfo:NSLocalizedString(@"dialog_title_tip", nil) subTitle:NSLocalizedString(@"homemore_zhuxiao_tip", nil) closeButtonTitle:NSLocalizedString(@"dialog_button_cancel", nil) duration:0];
+}
+
+
+
+
+- (void) exitSystemLogin : (UIViewController *) viewController {
+    
+//    SCLAlertView * alertView = [[SCLAlertView alloc] init];
+//    
+//    [alertView addButton:NSLocalizedString(@"dialog_button_ok", nil)  actionBlock:^{
+//        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+//        
+//        [userDefaults removeObjectForKey:Histroy_IsAutoLogin];
+//        [userDefaults removeObjectForKey:Histroy_Password];
+//        
+//        [userDefaults synchronize];
+//        
+//        [self initUserDefalutsValue];
+//        
+//        [[AppDelegate getInstance] runLoginViewController:viewController];
+//    }];
+//    
+//    [alertView showInfo:NSLocalizedString(@"dialog_title_tip", nil) subTitle:NSLocalizedString(@"homemore_zhuxiao_tip", nil) closeButtonTitle:NSLocalizedString(@"dialog_button_cancel", nil) duration:0];
+    
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithCapacity:5];
+    [self.loginDomain postData:URL_ExitLogin PostParams:params finish:^(BaseDomain * domain,Boolean success) {
+        NSLog(@"root == %@", self.loginDomain.dataRoot);
+        if ([self.loginDomain.dataRoot integerForKey:@"code"] == 1) {
+            NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+            [userd removeObjectForKey:@"access_token"];
+            [userd removeObjectForKey:@"accid"];
+            [userd removeObjectForKey:@"token"];
+    
+            [[AppDelegate getInstance] runLoginViewController:viewController];
+        }
+        
+    }];
 }
 
 

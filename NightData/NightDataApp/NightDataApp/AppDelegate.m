@@ -9,16 +9,33 @@
 #import "AppDelegate.h"
 #import "MainTabBarController.h"
 #import "JYHNavigationController.h"
+static AppDelegate * appDelegate;
 @interface AppDelegate ()<RDVTabBarControllerDelegate>
 
 @end
 
 @implementation AppDelegate
 
++ (instancetype) getInstance {
+    return appDelegate;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [self runMainViewController : nil];
+    appDelegate = self;
+    [[LoginManager getInstance] checkLoginfinish:^(Boolean success) {
+        if (success) {
+            [self runMainViewController : nil];
+            
+        } else {
+            
+            loginViewController *login = [[loginViewController alloc] init];
+            [self runLoginViewController : login];
+        }
+    }];
+    
+    
     return YES;
 }
 
@@ -54,7 +71,7 @@
     if (self.mainViewController)
         [self.mainViewController removeFromParentViewController];
     
-    UIViewController * viewController = [[UIViewController alloc] init];
+    loginViewController * viewController = [[loginViewController alloc] init];
     
     self.mainViewController = [[JYHNavigationController alloc] initWithRootViewController:viewController];
     

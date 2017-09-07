@@ -12,10 +12,10 @@
 
 
 #endif
-#define URL_LoginAuth @"/web/index/do_login"
-#define URL_ExitLogin @"/web/index/login_out"
+#define URL_LoginAuth @"login"
+#define URL_ExitLogin @"login_out"
 
-#define URL_CheckLogin @"/index/index/check_login"
+#define URL_CheckLogin @"check_login"
 
 #define URL_HEADURL @"https://www.with17.cn/index/shoper/"
 //#define URL_HEADURL @"http://139.196.113.61/"
@@ -27,6 +27,11 @@
 
 #define URL_scan_ticket @"scan_ticket"
 #define URL_bar_order_list @"bar_order_list"
+#define URL_GetCheckCode @"send_message"
+
+#define URL_getOrderNum @"bar_order_count"
+#define URL_get_daily_bill @"get_daily_bill"
+
 
 
 

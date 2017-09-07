@@ -32,6 +32,8 @@
 
 - (void) initUserDefalutsValue;
 
+-(void)checkLoginfinish:(void (^)(Boolean success)) finish;
+
 - (void) exitSystemLogin : (UIViewController *) viewController;
 
 - (void) postLoginAuth:(NSString*) userName userPwd:(NSString*) userPassword isAuto:(Boolean) isAutoLogin finish:(void (^)(Boolean success)) finish;

@@ -12,6 +12,8 @@
 #import "withModel.h"
 #import "SZQRCodeViewController.h"
 #import "orderListViewController.h"
+#import "packViewController.h"
+#import "loginViewController.h"
 @interface WithFirstFloorViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 
@@ -25,11 +27,21 @@
     
     UILabel *orderNumber;
     UILabel *moneyNumber;
+    
+    BaseDomain *getData;
+    NSDictionary *orderCound;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
+    
+    
+   
+
+    
+    
 }
 
 
@@ -37,13 +49,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    getData = [BaseDomain getInstance:NO];
     [self.view setBackgroundColor:Color_blackBack];
-    
     [self createView];
+    [self createData];
+    
     // Do any additional setup after loading the view.
 }
+-(void)createData
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [getData getData:URL_getOrderNum PostParams:params finish:^(BaseDomain *domain, Boolean success) {
+       
+        if ([self checkHttpResponseResultStatus:domain]) {
+            
+            
+            orderCound = [domain.dataRoot  dictionaryForKey:@"bar_order"];
+            [self reloadView];
+            
+        }
+        
+    }];
+}
 
+-(void)reloadView
+{
+    orderNumber.text = [orderCound stringForKey:@"order_count"];
+    moneyNumber.text = [NSString stringWithFormat:@"￥%@",[orderCound stringForKey:@"order_sum"]];
+}
 -(void)createView
 {
     shopTipTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
@@ -87,7 +120,7 @@
     .topSpaceToView(labelOrderNumber, 20)
     .heightIs(30)
     .widthIs(SCREEN_WIDTH / 2 - 1);
-    [orderNumber setText:@"11"];
+    [orderNumber setText:@"0"];
     [orderNumber setTextAlignment:NSTextAlignmentCenter];
     [orderNumber setFont:[UIFont boldSystemFontOfSize:20]];
     [orderNumber setTextColor:[UIColor whiteColor]];
@@ -123,7 +156,7 @@
     .topSpaceToView(labelMoneyNumber, 20)
     .heightIs(30)
     .widthIs(SCREEN_WIDTH / 2);
-    [moneyNumber setText:@"￥888888"];
+    [moneyNumber setText:@"￥0"];
     [moneyNumber setTextAlignment:NSTextAlignmentCenter];
     [moneyNumber setFont:[UIFont boldSystemFontOfSize:20]];
     [moneyNumber setTextColor:[UIColor whiteColor]];
@@ -155,9 +188,22 @@
         
     }
     
+    UIButton *buttonLogout = [[UIButton alloc] initWithFrame:CGRectMake(20, SCREEN_HEIGHT - 50, SCREEN_WIDTH - 40, 40)];
+    [buttonLogout setBackgroundImage:[UIImage imageNamed:@"ShakeBackView"] forState:UIControlStateNormal];
+    [buttonLogout addTarget:self action:@selector(clickExit) forControlEvents:UIControlEventTouchUpInside];
+    
+    [buttonLogout setTitle:@"注销" forState:UIControlStateNormal];
+    [buttonLogout.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [headView addSubview:buttonLogout];
     
     
     return headView;
+}
+
+-(void)clickExit
+{
+    loginViewController *login = [[loginViewController alloc] init];
+    [[LoginManager getInstance] exitSystemLogin:login];
 }
 
 
@@ -179,7 +225,11 @@
         }
             break;
         case 2:
+        {
+            packViewController *pack = [[packViewController alloc] init];
+            [self.navigationController pushViewController:pack animated:YES];
             
+        }
             break;
         case 3:
             

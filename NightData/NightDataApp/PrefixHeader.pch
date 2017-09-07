@@ -20,7 +20,7 @@
 #define Color_whiteLightLight [UIColor colorWithRed:1 green:1 blue:1 alpha:0.05]
 //判断设备是否是iPad
 #define iPadDevice (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-
+#define ImagePlaceHolder [UIImage imageNamed:@"placeholder"]
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
@@ -37,8 +37,8 @@
 #import "UIImage+MultiFormat.h"
 #import "NSDictionary+EmptyString.h"
 #import "CommonFunction.h"
-
-
+#import "LoginManager.h"
+#import "loginViewController.h"
 #import "AFNetworking.h"
 #import "AFNetworkActivityIndicatorManager.h"
 

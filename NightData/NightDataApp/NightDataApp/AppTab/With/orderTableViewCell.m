@@ -13,6 +13,7 @@
 {
     UILabel *userName;
     UILabel *createTime;
+    UILabel *moneyLabel;
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -42,8 +43,6 @@
     
     
     
-    
-    
     userName = [UILabel new];
     [backTicket addSubview:userName];
     userName.sd_layout
@@ -66,6 +65,16 @@
     [createTime setTextColor:Color_white];
     
     
+    moneyLabel = [UILabel new];
+    [backTicket addSubview:moneyLabel];
+    moneyLabel.sd_layout
+    .rightSpaceToView(backTicket, 12)
+    .centerYEqualToView(backTicket)
+    .heightIs(20)
+    .widthIs(100);
+    [moneyLabel setTextAlignment:NSTextAlignmentRight];
+    [moneyLabel setFont:[UIFont systemFontOfSize:16]];
+    [moneyLabel setTextColor:Color_white];
     
     
     
@@ -80,6 +89,7 @@
     
     [userName setText:model.userName];
     [createTime setText:model.orderTime];
+    [moneyLabel setText:[NSString stringWithFormat:@"金额:￥%@",model.payMoney]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

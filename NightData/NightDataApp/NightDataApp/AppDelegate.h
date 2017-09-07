@@ -17,7 +17,8 @@
 - (void) runMainViewController : (UIViewController *) childViewController;
 
 - (void) runLoginViewController : (UIViewController *) childViewController;
-- (void)startSdkWith:(NSString *)appID appKey:(NSString *)appKey appSecret:(NSString *)appSecret;
+
+//- (void)startSdkWith:(NSString *)appID appKey:(NSString *)appKey appSecret:(NSString *)appSecret;
 
 @property (nonatomic,strong) UIViewController * mainViewController;
 
